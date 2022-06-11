@@ -1,4 +1,4 @@
 # Visual Studio Extension for Coding Game
 
-[Extension](./CodingGameExtension)
+[Extension](./CodingGameExtension)  
 [Browser Library](./CodingBrowser)
