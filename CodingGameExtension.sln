@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodingGameExtension", "Extension\CodingGameExtension.csproj", "{B30527B3-1137-409A-AD4D-506F9F8B61CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extension", "Extension\Extension.csproj", "{B30527B3-1137-409A-AD4D-506F9F8B61CD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodingBrowser", "CodingBrowser\CodingBrowser.csproj", "{A7E5E41E-C4B8-4647-9E77-8E80A83D9F08}"
 EndProject
