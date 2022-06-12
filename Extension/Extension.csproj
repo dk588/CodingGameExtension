@@ -3,6 +3,7 @@
   <PropertyGroup>
     <MinimumVisualStudioVersion>17.0</MinimumVisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -15,7 +16,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CodingGameExtension</RootNamespace>
     <AssemblyName>CodingGameExtension</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <GeneratePkgDefFile>true</GeneratePkgDefFile>
     <UseCodebase>true</UseCodebase>
     <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
@@ -46,7 +47,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Coding\Class1.cs" />
+    <Compile Include="Command2.cs" />
     <Compile Include="Command1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CodingGameExtensionPackage.cs" />
@@ -79,6 +80,12 @@
     <Content Include="Resources\Command1.png" />
     <Content Include="Resources\play-circle.png" />
     <Content Include="Resources\play-circle.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CodingBrowser\CodingBrowser.csproj">
+      <Project>{2BBC68AA-3E09-428F-AAD7-980223326592}</Project>
+      <Name>CodingBrowser</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />

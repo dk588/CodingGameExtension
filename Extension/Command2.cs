@@ -14,12 +14,12 @@ namespace CodingGameExtension
     /// <summary>
     /// Command handler
     /// </summary>
-    internal sealed class Command1
+    internal sealed class Command2
     {
         /// <summary>
         /// Command ID.
         /// </summary>
-        public const int CommandId = 0x0100;
+        public const int CommandId = 0x0101;
 
         /// <summary>
         /// Command menu group (command set GUID).
@@ -31,13 +31,8 @@ namespace CodingGameExtension
         /// </summary>
         private readonly AsyncPackage package;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Command1"/> class.
-        /// Adds our command handlers for menu (commands must exist in the command table file)
-        /// </summary>
-        /// <param name="package">Owner package, not null.</param>
-        /// <param name="commandService">Command service to add command to, not null.</param>
-        private Command1(AsyncPackage package, OleMenuCommandService commandService)
+
+        private Command2(AsyncPackage package, OleMenuCommandService commandService)
         {
             this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
@@ -50,7 +45,7 @@ namespace CodingGameExtension
         /// <summary>
         /// Gets the instance of the command.
         /// </summary>
-        public static Command1 Instance
+        public static Command2 Instance
         {
             get;
             private set;
@@ -78,7 +73,7 @@ namespace CodingGameExtension
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
-            Instance = new Command1(package, commandService);
+            Instance = new Command2(package, commandService);
         }
 
         /// <summary>
@@ -90,9 +85,13 @@ namespace CodingGameExtension
         /// <param name="e">Event args.</param>
         private void Execute(object sender, EventArgs e)
         {
+
+
+            var b = Browser.Start();
+
             ThreadHelper.ThrowIfNotOnUIThread();
-            string message = string.Format(CultureInfo.CurrentCulture, "Inside {0}.MenuItemCallback()", this.GetType().FullName);
-            string title = "Command1";
+            string message = b.RetrieveCode();
+            string title = "Command2";
 
             // Show a message box to prove we were here
             VsShellUtilities.ShowMessageBox(
@@ -103,7 +102,6 @@ namespace CodingGameExtension
                 OLEMSGBUTTON.OLEMSGBUTTON_OK,
                 OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
 
-            Browser.Start();
         }
     }
 }
