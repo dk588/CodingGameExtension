@@ -61,16 +61,21 @@
 			
         </Strings>
       </Button>
-		<Button guid="guidCodingGameExtensionPackageCmdSet" id="Command2Id" priority="0x0101" type="Button">
+		<Button guid="guidCodingGameExtensionPackageCmdSet" id="Command2Id" priority="0x0100" type="Button">
 			<Parent guid="guidCodingGameExtensionPackageCmdSet" id="MyMenuGroup" />
 			<Icon  guid="guidImages" id="Play"  />
 			<Strings>
 				<ButtonText>CopyText</ButtonText>
-				<ToolTipText>CodingGame is stopped</ToolTipText>
-
 			</Strings>
 		</Button>
 
+		<Button guid="guidCodingGameExtensionPackageCmdSet" id="CommandPush" priority="0x0100" type="Button">
+			<Parent guid="guidCodingGameExtensionPackageCmdSet" id="MyMenuGroup" />
+			<Icon  guid="guidImages" id="Play"  />
+			<Strings>
+				<ButtonText>Push</ButtonText>
+			</Strings>
+		</Button>
 	</Buttons>
     <Bitmaps>
 		 <Bitmap guid="guidImages" href="Resources\play-circle.png" usedList="Play"/> 
@@ -86,6 +91,7 @@
       <IDSymbol name="MyMenuGroup" value="0x1020" />
       <IDSymbol name="Command1Id" value="0x0100" />
 	 <IDSymbol name="Command2Id" value="0x0101" />
+		<IDSymbol name="CommandPush" value="0x0102" />
     </GuidSymbol>
 
     <GuidSymbol name="guidImages" value="{488dd8a2-349c-433f-b061-4298d54a94de}" >

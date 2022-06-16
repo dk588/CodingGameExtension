@@ -15,7 +15,6 @@ namespace CodingBrowser
     {
 
         IWebDriver driver;
-        IJavaScriptExecutor js;
 
         private Browser(string url)
         {
@@ -24,8 +23,7 @@ namespace CodingBrowser
 
             // Start Session
             driver = new FirefoxDriver();
-            js = (IJavaScriptExecutor)driver;
-
+      
             // Go to Url
             driver.Navigate().GoToUrl(url);
 
@@ -41,7 +39,7 @@ namespace CodingBrowser
         public static Browser Start()
         {
 
-            return Start("https://www.codingame.com");
+            return Start("https://www.codingame.com/ide/puzzle/logic-gates");
 
         }
 
@@ -50,13 +48,27 @@ namespace CodingBrowser
             if (instance == null)
             {
                 instance = new Browser(url);
-            }
-            
+            }            
                 return instance;
         }
    
 
-        public void SendCode() { throw new NotImplementedException(); }
+        public void SendCode(string code) {
+
+            var el = driver.FindElement(By.ClassName("monaco-scrollable-element"));
+            if (el != null)
+            {
+                var body = driver.FindElement(By.TagName("BODY"));
+                el.Click();
+                body.SendKeys(Keys.LeftControl + "a");
+                var backup = F.Clipboard.GetDataObject();
+                F.Clipboard.SetText(code);
+                body.SendKeys(Keys.LeftControl + "v");
+                el.Click();
+                F.Clipboard.SetDataObject(backup);
+            }
+
+        }
         public void LaunchTest() {
             var el = driver.FindElement(By.ClassName("play-all-testcases"));
             if (el != null)

@@ -6,15 +6,23 @@ using System;
 using System.ComponentModel.Design;
 using System.Globalization;
 using System.Threading;
+using System.Linq;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
+using Interop = Microsoft.VisualStudio.OLE.Interop;
+using Microsoft.VisualStudio;
+using EnvDTE80;
+using EnvDTE;
 
-namespace CodingGameExtension
+namespace CodingGameExtension.Command
 {
     /// <summary>
     /// Command handler
+    /// 
+    /// https://docs.microsoft.com/en-us/visualstudio/extensibility/saving-data-in-project-files?view=vs-2022
+    /// 
     /// </summary>
-    internal sealed class Command2
+    internal sealed class CommandRetrieve
     {
         /// <summary>
         /// Command ID.
@@ -32,7 +40,7 @@ namespace CodingGameExtension
         private readonly AsyncPackage package;
 
 
-        private Command2(AsyncPackage package, OleMenuCommandService commandService)
+        private CommandRetrieve(AsyncPackage package, OleMenuCommandService commandService)
         {
             this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
@@ -45,7 +53,7 @@ namespace CodingGameExtension
         /// <summary>
         /// Gets the instance of the command.
         /// </summary>
-        public static Command2 Instance
+        public static CommandRetrieve Instance
         {
             get;
             private set;
@@ -73,7 +81,7 @@ namespace CodingGameExtension
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
-            Instance = new Command2(package, commandService);
+            Instance = new CommandRetrieve(package, commandService);
         }
 
         /// <summary>
@@ -85,23 +93,22 @@ namespace CodingGameExtension
         /// <param name="e">Event args.</param>
         private void Execute(object sender, EventArgs e)
         {
-
-
-            var b = Browser.Start();
-
             ThreadHelper.ThrowIfNotOnUIThread();
-            string message = b.RetrieveCode();
-            string title = "Command2";
+            // var b = Browser.Start();
 
-            // Show a message box to prove we were here
-            VsShellUtilities.ShowMessageBox(
-                this.package,
-                message,
-                title,
-                OLEMSGICON.OLEMSGICON_INFO,
-                OLEMSGBUTTON.OLEMSGBUTTON_OK,
-                OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+            package.GetServiceAsync(typeof(EnvDTE.DTE));
+            DTE2 dte = (DTE2)Package.GetGlobalService(typeof(EnvDTE.DTE));
+            var xx = dte.ActiveDocument.Type;
+            var tt = (EnvDTE.TextDocument) dte.ActiveDocument.Object();
+
+            // tt.Selection.SelectAll();
+            //tt.Selection.Insert(b.RetrieveCode());
 
         }
-    }
+ }
+
+
+
+    /***
+     * toolkit https://csharp.hotexamples.com/site/file?hash=0x998051109e55d6d88da779c22eb28a5ef08b858f6e23aca3b163d75ab9285ae2&fullName=javapkg/javapkg/VSHelpers.cs&project=XewTurquish/vsminecraft **/
 }
