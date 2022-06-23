@@ -11,8 +11,7 @@ namespace CodingBrowser
 {
     internal static class CookieManager
     {
-        private const string COOKIE_FILE = "Cookies.json";
-
+        private const string COOKIE_FILE = @"c:\temp\Firefox\Cookies.json";
 
         internal static void SaveToFile(ICookieJar cookieJar)
         {
@@ -23,23 +22,20 @@ namespace CodingBrowser
 
         internal static void LoadFromFile(ICookieJar cookieJar)
         {
-
             string jsonString = File.ReadAllText(COOKIE_FILE);
             var cookieCustoms = JsonConvert.DeserializeObject<List<CookieCustom>>(jsonString);
-
 
             if (cookieCustoms != null)
                 foreach (var c in cookieCustoms)
                     cookieJar.AddCookie(new Cookie(
                     name: c.Name
                     , value: c.Value
-                    ,domain: c.Domain
+                    , domain: c.Domain
                     , path: c.Path
                     , expiry: c.Expiry
                     , secure: c.Secure
                     , isHttpOnly: c.IsHttpOnly
                     , sameSite: c.SameSite));
-
         }
 
         private class CookieCustom { 

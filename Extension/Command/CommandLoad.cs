@@ -92,16 +92,16 @@ namespace CodingGameExtension.Command
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             string message = string.Format(CultureInfo.CurrentCulture, "Inside {0}.MenuItemCallback()", this.GetType().FullName);
-            string title = "Command1";
+          //  string title = "Command1";
 
             // Show a message box to prove we were here
-            VsShellUtilities.ShowMessageBox(
+           /* VsShellUtilities.ShowMessageBox(
                 this.package,
                 message,
                 title,
                 OLEMSGICON.OLEMSGICON_INFO,
                 OLEMSGBUTTON.OLEMSGBUTTON_OK,
-                OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+                OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);*/
 
             Browser.Start();
         }

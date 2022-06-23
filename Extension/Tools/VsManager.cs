@@ -26,18 +26,32 @@ namespace CodingGameExtension.Tools
 
             Project prj = ((object[])dte.ActiveSolutionProjects)[0] as Project;
 
-            prj.FullName.Substring(0, prj.FullName.LastIndexOf('\\')+1);
+            ExtractFiles(result, prj.ProjectItems);
 
-            foreach (var projectItem in prj.ProjectItems)
+            return result;
+        
+        }
+        /// <summary>
+        /// Recursive !
+        /// </summary>
+        /// <param name="result"></param>
+        /// <param name="prj"></param>
+        private static void ExtractFiles(List<string> result, ProjectItems items)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            foreach (var item in items)
             {
-                var file = projectItem as ProjectItem;
+                var projectItem = item as ProjectItem;
 
-                var fullpath = file.Properties.getProperty("FullPath");
+                var fullpath = projectItem.Properties.getProperty("FullPath");
 
-                result.Add(fullpath);
+                if (fullpath.EndsWith("\\")) //Folder
+                    ExtractFiles(result, projectItem.ProjectItems);
+                else
+                    result.Add(fullpath);
 
             }
-            return result;
         }
 
         public void SaveAllDocument()

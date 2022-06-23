@@ -53,6 +53,12 @@ namespace CodingGameExtension
             await CommandPush.InitializeAsync(this);
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            CodingBrowser.Browser.Shutdown();
+            base.Dispose(disposing);
+        }
+
         #endregion
     }
 }

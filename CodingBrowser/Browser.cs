@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 using F = System.Windows.Forms;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
+using System.IO;
+using WebDriverManager.Helpers;
+using WebDriverManager.DriverConfigs;
 
 namespace CodingBrowser
 {
@@ -19,10 +22,18 @@ namespace CodingBrowser
         private Browser(string url)
         {
             // Download/Update Driver
-            new DriverManager().SetUpDriver(new FirefoxConfig());
+         //  var c = new FirefoxConfig();
+
+           // var dm  = new DriverManager();
+
+         //   var driverUrl = UrlHelper.BuildUrl(c.GetUrl64(), c.GetLatestVersion());
+
+           // dm.SetUpDriver(driverUrl, @"C:\temp");
+
+           // SetUpDriver(new FirefoxConfig());
 
             // Start Session
-            driver = new FirefoxDriver();
+            driver = new FirefoxDriver(@"c:\temp\firefox");
       
             // Go to Url
             driver.Navigate().GoToUrl(url);
@@ -36,10 +47,24 @@ namespace CodingBrowser
 
         private static Browser instance;
 
+
+        public string SetUpDriver(IDriverConfig config)
+        {
+
+            var architecture = ArchitectureHelper.GetArchitecture();
+
+            string version = config.GetLatestVersion();
+            var url = architecture.Equals(Architecture.X32) ? config.GetUrl32() : config.GetUrl64();
+            url = UrlHelper.BuildUrl(url, version);
+            var binaryPath = @"c:\temp\Firefox\";  
+            return new DriverManager().SetUpDriver(url, binaryPath);
+
+        }
+
         public static Browser Start()
         {
 
-            return Start("https://www.codingame.com/ide/puzzle/logic-gates");
+            return Start("https://www.codingame.com/ide/challenge/green-circle");
 
         }
 
@@ -50,6 +75,12 @@ namespace CodingBrowser
                 instance = new Browser(url);
             }            
                 return instance;
+        }
+
+        public static void Shutdown()
+        {
+            if (instance != null)
+                instance.driver.Quit();
         }
    
 
@@ -70,7 +101,7 @@ namespace CodingBrowser
 
         }
         public void LaunchTest() {
-            var el = driver.FindElement(By.ClassName("play-all-testcases"));
+            var el = driver.FindElement(By.ClassName("replay"));
             if (el != null)
             {
                 Console.WriteLine("clik");

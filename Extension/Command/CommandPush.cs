@@ -76,46 +76,29 @@ namespace CodingGameExtension.Command
             vs.SaveAllDocument();
 
             var sb = new StringBuilder();
+            sb.AppendLine("using System;\r\nusing System.Linq;\r\nusing System.IO;\r\nusing System.Text;\r\nusing System.Collections;\r\nusing System.Collections.Generic;");
+         
+
             foreach (FileInfo file in vs.getProjetFiles().Select(f => new FileInfo(f)))
             {
-                using (var reader = file.OpenText()) { 
-
-                string s;
-                while ((s = reader.ReadLine()) != null)
+                using (var reader = file.OpenText())
                 {
-                    sb.AppendLine(s);
-                }
+                    string s;
+                    var isCopyStart = false;
+                    while ((s = reader.ReadLine()) != null)
+                    {
+                        if (isCopyStart)
+                            sb.AppendLine(s);
+                        if (s.TrimStart(' ').TrimStart('\t').StartsWith("namespace"))
+                            isCopyStart = true;
+                    }
                 }
             }
 
             var b = Browser.Start();
 
             b.SendCode(sb.ToString());
-            b.LaunchTest();
-
-
-           /* ThreadHelper.ThrowIfNotOnUIThread();
-           // var b = Browser.Start();
-
-
-            DTE2 dte = (DTE2)Package.GetGlobalService(typeof(EnvDTE.DTE));
-            var xx = dte.ActiveDocument.Type;
-            var tt = (EnvDTE.TextDocument) dte.ActiveDocument.Object();
-
-            // tt.Selection.SelectAll();
-            //tt.Selection.Insert(b.RetrieveCode());
-
-
-            // Interop.IServiceProvider sp = (Interop.IServiceProvider)dte2;
-
-            //ServiceProvider serviceProvider = new ServiceProvider(sp);
-            Project prj = ((object[])dte.ActiveSolutionProjects)[0] as Project;
-            foreach (var v in prj.ProjectItems)
-            {
-                var projects = v as ProjectItem;
-                projects.FileNames
-
-            }*/
+         //   b.LaunchTest();
         }
     }
 
