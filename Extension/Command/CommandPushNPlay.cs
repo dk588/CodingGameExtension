@@ -13,12 +13,12 @@ using Interop = Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio;
 using EnvDTE80;
 using EnvDTE;
-using CodingGameExtension.Tools;
+using CodinGameExtension.Tools;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
-namespace CodingGameExtension.Command
+namespace CodinGameExtension.Command
 {
     internal sealed class CommandPushNPlay
     {

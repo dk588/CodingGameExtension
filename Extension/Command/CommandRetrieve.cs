@@ -14,7 +14,7 @@ using Microsoft.VisualStudio;
 using EnvDTE80;
 using EnvDTE;
 
-namespace CodingGameExtension.Command
+namespace CodinGameExtension.Command
 {
     /// <summary>
     /// Command handler

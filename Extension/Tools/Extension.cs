@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodingGameExtension.Tools
+namespace CodinGameExtension.Tools
 {
     internal static class Extension
     {

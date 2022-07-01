@@ -1,6 +1,6 @@
 ﻿
 using CodingBrowser;
-using CodingGameExtension.Tools;
+using CodinGameExtension.Tools;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
 
-namespace CodingGameExtension.Command
+namespace CodinGameExtension.Command
 {
     /// <summary>
     /// Command handler
