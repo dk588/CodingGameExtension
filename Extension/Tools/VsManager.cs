@@ -29,6 +29,7 @@ namespace CodingGameExtension.Tools
             ExtractFiles(result, prj.ProjectItems);
 
             return result;
+
         
         }
         /// <summary>
@@ -60,8 +61,6 @@ namespace CodingGameExtension.Tools
             dte.Documents.SaveAll();
 
         }
-
-  
 
     }
 }

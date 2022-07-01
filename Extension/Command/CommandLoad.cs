@@ -1,5 +1,6 @@
 ﻿
 using CodingBrowser;
+using CodingGameExtension.Tools;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
@@ -24,7 +25,7 @@ namespace CodingGameExtension.Command
         /// <summary>
         /// Command menu group (command set GUID).
         /// </summary>
-        public static readonly Guid CommandSet = new Guid("24fae27f-5144-4741-b6fb-f2f8121376e1");
+        public static readonly Guid CommandSet = new Guid("24fae27f-5144-4741-b6fb-f2f8821376e1");
 
         /// <summary>
         /// VS Package that provides this command, not null.
@@ -91,19 +92,8 @@ namespace CodingGameExtension.Command
         private void Execute(object sender, EventArgs e)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-            string message = string.Format(CultureInfo.CurrentCulture, "Inside {0}.MenuItemCallback()", this.GetType().FullName);
-          //  string title = "Command1";
 
-            // Show a message box to prove we were here
-           /* VsShellUtilities.ShowMessageBox(
-                this.package,
-                message,
-                title,
-                OLEMSGICON.OLEMSGICON_INFO,
-                OLEMSGBUTTON.OLEMSGBUTTON_OK,
-                OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);*/
-
-            Browser.Start();
+             Browser.Start();
         }
     }
 }

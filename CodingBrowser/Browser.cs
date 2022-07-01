@@ -17,32 +17,79 @@ namespace CodingBrowser
     public class Browser
     {
 
-        IWebDriver driver;
+        public WebDriver driver;
 
         private Browser(string url)
         {
             // Download/Update Driver
-         //  var c = new FirefoxConfig();
+            //  var c = new FirefoxConfig();
 
-           // var dm  = new DriverManager();
+            // var dm  = new DriverManager();
 
-         //   var driverUrl = UrlHelper.BuildUrl(c.GetUrl64(), c.GetLatestVersion());
+            //   var driverUrl = UrlHelper.BuildUrl(c.GetUrl64(), c.GetLatestVersion());
 
-           // dm.SetUpDriver(driverUrl, @"C:\temp");
+            // dm.SetUpDriver(driverUrl, @"C:\temp");
 
-           // SetUpDriver(new FirefoxConfig());
+            // SetUpDriver(new FirefoxConfig());
 
             // Start Session
-            driver = new FirefoxDriver(@"c:\temp\firefox");
+            var options = new FirefoxOptions();
+                options.PageLoadStrategy = PageLoadStrategy.Eager; //DOM access is ready, but other resources like images may still be loading
+
+            driver = new FirefoxDriver(@"c:\temp\firefox", options) ;
       
-            // Go to Url
             driver.Navigate().GoToUrl(url);
 
-            //Load cookie
-            CookieManager.LoadFromFile(driver.Manage().Cookies);
 
-            //Refresh
-            driver.Navigate().Refresh();
+            if (CookieManager.CookieFileExist())
+            {
+                CookieManager.LoadFromFile(driver.Manage().Cookies);
+                driver.Navigate().Refresh();
+            }
+            
+        }
+
+
+        /// <summary>
+        /// Create cookie if user logged in
+        /// Remove cookie if user logged out
+        /// Need to be launch frequently (every 300ms)
+        /// </summary>
+        public void CheckCookie()
+        {
+            if (IsCodingGameOpen()) {
+                if (ClassExist(Element.BUTTON_LOGIN))
+                {
+                    if (CookieManager.CookieFileExist())
+                        CookieManager.DeleteCookieFile();
+                }
+                else
+                {
+                    if(!CookieManager.CookieFileExist())
+                        CookieManager.SaveToFile(driver.Manage().Cookies);
+                }
+            }
+        }
+
+        public bool IsCodingGameOpen()
+        {
+            try
+            {
+                return driver.Url.IndexOf("codingame.com", StringComparison.OrdinalIgnoreCase) > 0;
+            }
+            catch(WebDriverException)
+            { return false; }
+
+        }
+
+
+        public bool ClassExist(string className)
+        {
+            if (!IsCodingGameOpen()) return false;
+
+            var elements = driver.FindElements(By.ClassName(className));
+            return elements.Any();
+
         }
 
         private static Browser instance;
@@ -77,42 +124,93 @@ namespace CodingBrowser
                 return instance;
         }
 
-        public static void Shutdown()
+ 
+
+      public static void Shutdown()
         {
             if (instance != null)
+            {
                 instance.driver.Quit();
+            }
         }
-   
 
         public void SendCode(string code) {
 
-            var el = driver.FindElement(By.ClassName("monaco-scrollable-element"));
-            if (el != null)
+            if (CanSendCode())
             {
-                var body = driver.FindElement(By.TagName("BODY"));
-                el.Click();
-                body.SendKeys(Keys.LeftControl + "a");
-                var backup = F.Clipboard.GetDataObject();
-                F.Clipboard.SetText(code);
-                body.SendKeys(Keys.LeftControl + "v");
-                el.Click();
-                F.Clipboard.SetDataObject(backup);
+
+                var el = driver.FindElement(By.ClassName(Element.ZONE_CODE));
+                if (el != null)
+                {
+                    var body = driver.FindElement(By.TagName("BODY"));
+                    el.Click();
+                    body.SendKeys(Keys.LeftControl + "a");
+                    var backup = F.Clipboard.GetDataObject();
+                    F.Clipboard.SetText(code);
+                    body.SendKeys(Keys.LeftControl + "v");
+                    el.Click();
+                    F.Clipboard.SetDataObject(backup);
+                }
             }
 
         }
-        public void LaunchTest() {
-            var el = driver.FindElement(By.ClassName("replay"));
+
+        public bool CanSendCode()
+        {
+            return ClassExist(Element.ZONE_CODE);
+        }
+
+        public bool CanLaunchTest()
+        {
+            return IsEnabledButton(Element.BUTTON_PLAY);
+        
+        }
+
+        public bool IsEnabledButton(string b)
+        {
+            if (ClassExist(b))
+            {
+                var el = driver.FindElement(By.ClassName(b));
+                return el.Enabled;
+            }
+            else
+                return false;
+        }
+
+        public void LaunchTest()
+        {
+            if (IsEnabledButton(Element.BUTTON_REPLAY))
+            {
+                PushButton(Element.BUTTON_REPLAY);
+            }
+            else
+            if (IsEnabledButton(Element.BUTTON_PLAY))
+            {
+                PushButton(Element.BUTTON_PLAY);
+            }
+        }
+
+        private void PushButton(string b)
+        {
+            var el = driver.FindElement(By.ClassName(b));
             if (el != null)
             {
-                Console.WriteLine("clik");
+                Console.WriteLine("clik b");
                 el.Click();
             }
         }
+
+
         public void Submitcode() { throw new NotImplementedException(); }
 
+
+        /// <summary>
+        /// Not used
+        /// </summary>
+        /// <returns></returns>
         public string RetrieveCode()
         {
-            var el = driver.FindElement(By.ClassName("monaco-scrollable-element"));
+            var el = driver.FindElement(By.ClassName(Element.ZONE_CODE));
             if (el != null)
             {
 

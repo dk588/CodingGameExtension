@@ -20,23 +20,17 @@ using System.Windows.Forms;
 
 namespace CodingGameExtension.Command
 {
-    /// <summary>
-    /// Command handler
-    /// 
-    /// https://docs.microsoft.com/en-us/visualstudio/extensibility/saving-data-in-project-files?view=vs-2022
-    /// 
-    /// </summary>
-    internal sealed class CommandPush
+    internal sealed class CommandPushNPlay
     {
 
-        public const int CommandId = 0x0101;
+        public const int CommandId = 0x0102;
 
         public static readonly Guid CommandSet = new Guid("24fae27f-5144-4741-b6fb-f2f8821376e1");
 
         private readonly AsyncPackage package;
 
 
-        private CommandPush(AsyncPackage package, OleMenuCommandService commandService)
+        private CommandPushNPlay(AsyncPackage package, OleMenuCommandService commandService)
         {
             this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
@@ -46,7 +40,7 @@ namespace CodingGameExtension.Command
             commandService.AddCommand(menuItem);
         }
 
-        public static CommandPush Instance
+        public static CommandPushNPlay Instance
         {
             get;
             private set;
@@ -62,12 +56,10 @@ namespace CodingGameExtension.Command
 
         public static async Task InitializeAsync(AsyncPackage package)
         {
-            // Switch to the main thread - the call to AddCommand in Command1's constructor requires
-            // the UI thread.
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
-            Instance = new CommandPush(package, commandService);
+            Instance = new CommandPushNPlay(package, commandService);
         }
 
         private void Execute(object sender, EventArgs e)
@@ -90,7 +82,7 @@ namespace CodingGameExtension.Command
                     {
                         if (isCopyStart)
                             sb.AppendLine(s);
-                        if (s.TrimStart(' ').TrimStart('\t').StartsWith("namespace"))
+                        if (s.TrimStart(' ').TrimStart('\t').StartsWith("namespace") )
                             isCopyStart = true;
                     }
                 }
@@ -98,10 +90,18 @@ namespace CodingGameExtension.Command
 
             var b = Browser.Start();
 
+
             if (b.CanSendCode())
+            {
                 b.SendCode(sb.ToString());
+                if (b.CanLaunchTest())
+                    b.LaunchTest();
+                else
+                    MessageBox.Show("Can't find element to launch test");
+            }
             else
                 MessageBox.Show("Can't find element to send code");
+
         }
     }
 

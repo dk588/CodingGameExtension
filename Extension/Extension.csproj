@@ -50,6 +50,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Command\CommandPush.cs" />
+    <Compile Include="Command\CommandPushNPlay.cs" />
     <Compile Include="Command\CommandRetrieve.cs" />
     <Compile Include="Command\CommandLoad.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

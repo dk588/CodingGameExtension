@@ -15,7 +15,7 @@ namespace CodingBrowser
 
         internal static void SaveToFile(ICookieJar cookieJar)
         {
-            var cookieSerialized = JsonConvert.SerializeObject(cookieJar.AllCookies);
+            var cookieSerialized = JsonConvert.SerializeObject(cookieJar.AllCookies.Where(c=>c.Domain.IndexOf("codingame.com", StringComparison.OrdinalIgnoreCase)>0));
 
             File.WriteAllText(COOKIE_FILE, cookieSerialized);
         }
@@ -36,6 +36,18 @@ namespace CodingBrowser
                     , secure: c.Secure
                     , isHttpOnly: c.IsHttpOnly
                     , sameSite: c.SameSite));
+        }
+
+        internal static bool CookieFileExist()
+        {
+            return File.Exists(COOKIE_FILE);
+        }
+
+        internal static void DeleteCookieFile()
+        {
+            if(CookieFileExist())
+                File.Delete(COOKIE_FILE);
+
         }
 
         private class CookieCustom { 

@@ -49,7 +49,7 @@ namespace CodingGameExtension
             // Do any initialization that requires the UI thread after switching to the UI thread.
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             await CommandLoad.InitializeAsync(this);
-            await CommandRetrieve.InitializeAsync(this);
+            await CommandPushNPlay.InitializeAsync(this);
             await CommandPush.InitializeAsync(this);
         }
 

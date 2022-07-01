@@ -24,19 +24,10 @@ namespace CodingGameExtension.Command
     /// </summary>
     internal sealed class CommandRetrieve
     {
-        /// <summary>
-        /// Command ID.
-        /// </summary>
         public const int CommandId = 0x0101;
 
-        /// <summary>
-        /// Command menu group (command set GUID).
-        /// </summary>
-        public static readonly Guid CommandSet = new Guid("24fae27f-5144-4741-b6fb-f2f8121376e1");
+        public static readonly Guid CommandSet = new Guid("24fae27f-5144-4741-b6fb-f2f8821376e1");
 
-        /// <summary>
-        /// VS Package that provides this command, not null.
-        /// </summary>
         private readonly AsyncPackage package;
 
 
@@ -50,9 +41,6 @@ namespace CodingGameExtension.Command
             commandService.AddCommand(menuItem);
         }
 
-        /// <summary>
-        /// Gets the instance of the command.
-        /// </summary>
         public static CommandRetrieve Instance
         {
             get;
@@ -107,8 +95,4 @@ namespace CodingGameExtension.Command
         }
  }
 
-
-
-    /***
-     * toolkit https://csharp.hotexamples.com/site/file?hash=0x998051109e55d6d88da779c22eb28a5ef08b858f6e23aca3b163d75ab9285ae2&fullName=javapkg/javapkg/VSHelpers.cs&project=XewTurquish/vsminecraft **/
 }
