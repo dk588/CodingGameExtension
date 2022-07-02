@@ -83,9 +83,7 @@
     </VSCTCompile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Command1.png" />
-    <Content Include="Resources\play-circle.png" />
-    <Content Include="Resources\play-circle.svg" />
+    <Content Include="Resources\IconeCodinGame.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CodingBrowser\CodingBrowser.csproj">

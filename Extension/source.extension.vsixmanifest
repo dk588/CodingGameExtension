@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="CodinGameExtension.aa1e6aa8-4367-45e0-b7ec-b2f2dd823f68" Version="1.0" Language="en-US" Publisher="Renaud" />
+        <Identity Id="CodinGameExtension.aa1e6aa8-4367-45e0-b7ec-b2f2dd823f68" Version="1.0" Language="en-US" Publisher="Renaud R" />
         <DisplayName>CodinGameExtension</DisplayName>
         <Description xml:space="preserve">Extension to publish code to codingame.com</Description>
     </Metadata>
@@ -9,10 +9,10 @@
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">
             <ProductArchitecture>amd64</ProductArchitecture>
         </InstallationTarget>
-        <InstallationTarget Version="[16.0,18.0)" Id="Microsoft.VisualStudio.Pro">
+        <InstallationTarget Version="[17.0,18.0)" Id="Microsoft.VisualStudio.Pro">
             <ProductArchitecture>amd64</ProductArchitecture>
         </InstallationTarget>
-        <InstallationTarget Version="[16.0,18.0)" Id="Microsoft.VisualStudio.Enterprise">
+        <InstallationTarget Version="[17.0,18.0)" Id="Microsoft.VisualStudio.Enterprise">
             <ProductArchitecture>amd64</ProductArchitecture>
         </InstallationTarget>
     </Installation>

@@ -35,32 +35,32 @@
 	
 			<Button guid="guidCmdSet" id="CommandLoad" priority="0x0110" type="Button">
 				<Parent guid="guidCmdSet" id="ToolbarCGGroup" />
-				<Icon  guid="guidImages" id="Play"   />
+				<Icon  guid="guidImages" id="Load"   />
 				<Strings>
 					<ButtonText>Load CodingGame Browser</ButtonText>
-					<ToolTipText>CodingGame is stopped</ToolTipText>
-
+					<ToolTipText>Load CodingGame Browser</ToolTipText>
 				</Strings>
 			</Button>
 			<Button guid="guidCmdSet" id="CommandPush" priority="0x0110" type="Button" >
 				<Parent guid="guidCmdSet" id="ToolbarCGGroup" />
-				<Icon  guid="guidImages" id="Play"  />			
+				<Icon  guid="guidImages" id="Push"  />			
 				<Strings>
-					<ButtonText>CopyText</ButtonText>
+					<ButtonText>Push Code</ButtonText>
+					<ToolTipText>Push Code</ToolTipText>
 				</Strings>
 			</Button>
 
 			<Button guid="guidCmdSet" id="CommandPushNPlay" priority="0x0110" type="Button">
 				<Parent guid="guidCmdSet" id="ToolbarCGGroup" />
-				<Icon  guid="guidImages" id="Play"  />
+				<Icon  guid="guidImages" id="PushNPlay"  />
 				<Strings>
-					<ButtonText>Push</ButtonText>
-					<ToolTipText>PUSH</ToolTipText>
+					<ButtonText>Push and play</ButtonText>
+					<ToolTipText>Push and play</ToolTipText>
 				</Strings>
 			</Button>
 		</Buttons>
 		<Bitmaps>
-			<Bitmap guid="guidImages" href="Resources\play-circle.png" usedList="Play"/>
+			<Bitmap guid="guidImages" href="Resources\IconeCodinGame.png" usedList="Load,Push,PushNPlay"/>
 		</Bitmaps>
 	</Commands>
 
@@ -82,7 +82,9 @@
 			
 
 		<GuidSymbol name="guidImages" value="{488dd8a2-349c-433f-b061-4298d54a94de}" >
-			<IDSymbol name="Play" value="1" />
+			<IDSymbol name="Load" value="1" />
+			<IDSymbol name="Push" value="2" />
+			<IDSymbol name="PushNPlay" value="3" />
 		</GuidSymbol>
 	</Symbols>
 </CommandTable>
