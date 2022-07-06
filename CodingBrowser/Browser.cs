@@ -139,7 +139,7 @@ namespace CodingBrowser
         public static Browser Start()
         {
 
-            return Start("https://www.codingame.com/ide/challenge/green-circle");
+            return Start("https://www.codingame.com/");
 
         }
 
