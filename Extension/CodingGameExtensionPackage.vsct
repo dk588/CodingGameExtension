@@ -3,8 +3,6 @@
 	<Extern href="stdidcmd.h"/>
 	<Extern href="vsshlids.h"/>
 
-	<!--The Commands section is where commands, menus, and menu groups are defined.
-      This section uses a Guid to identify the package that provides the command defined inside it. -->
 	<Commands package="guidCodingGameExtensionPackage">
 
 
@@ -13,10 +11,6 @@
 			<Group guid="guidCmdSet" id="ToolbarCGGroup" priority="0x0500">
 				<Parent guid="guidCmdSet" id="ToolbarCG"/>
 			</Group>	
-			<!--<Group guid="guidCmdSet" id="MenuCG" priority="0x0600">
-				<Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
-			
-			</Group>-->
 		</Groups>
 
 
@@ -25,8 +19,8 @@
 				type="Toolbar" >
 				<CommandFlag>DefaultDocked</CommandFlag>
 				<Strings>
-					<ButtonText>Test Toolbar</ButtonText>
-					<CommandName>Test Toolbar</CommandName>
+					<ButtonText>CodinGame Extension</ButtonText>
+					<CommandName>CodinGame Extension</CommandName>
 				</Strings>
 			</Menu>
 		</Menus>		
@@ -65,12 +59,10 @@
 	</Commands>
 
 	<Symbols>
-		<!-- This is the package guid. -->
+		
 		<GuidSymbol name="guidCodingGameExtensionPackage" value="{edd7dfd6-384f-47ef-8c27-2e87deb2cf83}" />
 
-		<!-- This is the guid used to group the menu commands together -->
 		<GuidSymbol name="guidCmdSet" value="{24fae27f-5144-4741-b6fb-f2f8821376e1}">
-			<!--<IDSymbol name="MenuCG" value="0x1020" />-->
 			<IDSymbol name="ToolbarCG" value="0x1005" />
 			<IDSymbol name="ToolbarCGGroup" value="0x1080" />
 			
