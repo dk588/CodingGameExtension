@@ -15,12 +15,11 @@ namespace CodingBrowserTest
 
             Console.WriteLine("Browser Starting...");
             var browser = Browser.Start(@"https://www.codingame.com");
-            Console.WriteLine("Browser Stared");
+            Console.WriteLine("Browser Statred");
 
             while (true)
             {
                 Thread.Sleep(800);
-                browser.CheckCookie();
 
 
 

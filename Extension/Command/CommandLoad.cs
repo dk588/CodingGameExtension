@@ -45,8 +45,13 @@ namespace CodinGameExtension.Command
 
             var menuCommandID = new CommandID(CommandSet, CommandId);
             var menuItem = new MenuCommand(this.Execute, menuCommandID);
+            
             commandService.AddCommand(menuItem);
+
+
         }
+
+        
 
         /// <summary>
         /// Gets the instance of the command.
@@ -82,6 +87,7 @@ namespace CodinGameExtension.Command
             Instance = new CommandLoad(package, commandService);
         }
 
+
         /// <summary>
         /// This function is the callback used to execute the command when the menu item is clicked.
         /// See the constructor to see how the menu item is associated with this function using
@@ -93,7 +99,8 @@ namespace CodinGameExtension.Command
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-             Browser.Start();
-        }
+            Browser.Start();
+                    
+        } 
     }
 }

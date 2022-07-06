@@ -11,6 +11,8 @@ using WebDriverManager.DriverConfigs.Impl;
 using System.IO;
 using WebDriverManager.Helpers;
 using WebDriverManager.DriverConfigs;
+using OpenQA.Selenium.Support.Events;
+using System.Threading;
 
 namespace CodingBrowser
 {
@@ -18,6 +20,8 @@ namespace CodingBrowser
     {
 
         public WebDriver driver;
+
+        Thread InstanceCaller;
 
         private Browser(string url)
         {
@@ -37,7 +41,7 @@ namespace CodingBrowser
                 options.PageLoadStrategy = PageLoadStrategy.Eager; //DOM access is ready, but other resources like images may still be loading
 
             driver = new FirefoxDriver(@"c:\temp\firefox", options) ;
-      
+
             driver.Navigate().GoToUrl(url);
 
 
@@ -46,9 +50,33 @@ namespace CodingBrowser
                 CookieManager.LoadFromFile(driver.Manage().Cookies);
                 driver.Navigate().Refresh();
             }
-            
+
+             InstanceCaller = new Thread(new ThreadStart(CookieChecker));
+            InstanceCaller.Start();
         }
 
+
+        private void CookieChecker()
+        {
+            string url = "";
+            while (true)
+            {
+                try
+                {
+                    if (IsCodingGameOpen())
+                    {
+                        if (driver.Url != url)
+                        {
+                            url = driver.Url;
+                            CheckCookie();
+
+                        }
+                    }
+                }
+                catch (Exception ex) { }
+                Thread.Sleep(1000);
+            }
+        }
 
         /// <summary>
         /// Create cookie if user logged in
@@ -124,13 +152,22 @@ namespace CodingBrowser
                 return instance;
         }
 
- 
-
-      public static void Shutdown()
+        public static void Refresh()
         {
             if (instance != null)
             {
+                instance.driver.Navigate().Refresh();
+            }
+        }
+
+        public static void Shutdown()
+        {
+            if (instance != null)
+            {
+                instance.InstanceCaller.Abort();
                 instance.driver.Quit();
+       
+
             }
         }
 
@@ -152,7 +189,6 @@ namespace CodingBrowser
                     F.Clipboard.SetDataObject(backup);
                 }
             }
-
         }
 
         public bool CanSendCode()
@@ -162,8 +198,7 @@ namespace CodingBrowser
 
         public bool CanLaunchTest()
         {
-            return IsEnabledButton(Element.BUTTON_PLAY);
-        
+            return IsEnabledButton(Element.BUTTON_PLAY);        
         }
 
         public bool IsEnabledButton(string b)
