@@ -53,6 +53,7 @@
     <Compile Include="Command\CommandPushNPlay.cs" />
     <Compile Include="Command\CommandRetrieve.cs" />
     <Compile Include="Command\CommandLoad.cs" />
+    <Compile Include="Tools\CSharpProject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CodingGameExtensionPackage.cs" />
     <Compile Include="Tools\Extension.cs" />

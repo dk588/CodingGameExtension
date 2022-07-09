@@ -76,30 +76,14 @@ namespace CodinGameExtension.Command
 
             vs.SaveAllDocument();
 
-            var sb = new StringBuilder();
-            sb.AppendLine("using System;\r\nusing System.Linq;\r\nusing System.IO;\r\nusing System.Text;\r\nusing System.Collections;\r\nusing System.Collections.Generic;");
-         
+            var cSharpProject = new CSharpProject();
 
-            foreach (FileInfo file in vs.getProjetFiles().Select(f => new FileInfo(f)))
-            {
-                using (var reader = file.OpenText())
-                {
-                    string s;
-                    var isCopyStart = false;
-                    while ((s = reader.ReadLine()) != null)
-                    {
-                        if (isCopyStart)
-                            sb.AppendLine(s);
-                        if (s.TrimStart(' ').TrimStart('\t').StartsWith("namespace"))
-                            isCopyStart = true;
-                    }
-                }
-            }
+            cSharpProject.AddFiles(vs.getProjetFiles().Select(f => new FileInfo(f)));
 
             var b = Browser.Start();
 
             if (b.CanSendCode())
-                b.SendCode(sb.ToString());
+                b.SendCode(cSharpProject.GetCode());
             else
                 MessageBox.Show("Can't find element to send code");
         }

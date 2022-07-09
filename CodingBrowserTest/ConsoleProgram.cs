@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CodingBrowserTest
 {
-    internal class Program
+    internal class ConsoleProgram
     {
         static void Main(string[] args)
         {

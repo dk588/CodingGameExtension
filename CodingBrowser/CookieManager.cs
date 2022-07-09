@@ -11,18 +11,23 @@ namespace CodingBrowser
 {
     internal static class CookieManager
     {
-        private const string COOKIE_FILE = @"c:\temp\Firefox\Cookies.json";
+
+        private static string Cookie_File { get
+            {
+                return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\CodinGameExtension\Cookies.json"; 
+
+            } }
 
         internal static void SaveToFile(ICookieJar cookieJar)
         {
             var cookieSerialized = JsonConvert.SerializeObject(cookieJar.AllCookies.Where(c=>c.Domain.IndexOf("codingame.com", StringComparison.OrdinalIgnoreCase)>0));
 
-            File.WriteAllText(COOKIE_FILE, cookieSerialized);
+            File.WriteAllText(Cookie_File, cookieSerialized);
         }
 
         internal static void LoadFromFile(ICookieJar cookieJar)
         {
-            string jsonString = File.ReadAllText(COOKIE_FILE);
+            string jsonString = File.ReadAllText(Cookie_File);
             var cookieCustoms = JsonConvert.DeserializeObject<List<CookieCustom>>(jsonString);
 
             if (cookieCustoms != null)
@@ -40,13 +45,13 @@ namespace CodingBrowser
 
         internal static bool CookieFileExist()
         {
-            return File.Exists(COOKIE_FILE);
+            return File.Exists(Cookie_File);
         }
 
         internal static void DeleteCookieFile()
         {
             if(CookieFileExist())
-                File.Delete(COOKIE_FILE);
+                File.Delete(Cookie_File);
 
         }
 

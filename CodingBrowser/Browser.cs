@@ -6,13 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using F = System.Windows.Forms;
-using WebDriverManager;
-using WebDriverManager.DriverConfigs.Impl;
-using System.IO;
-using WebDriverManager.Helpers;
-using WebDriverManager.DriverConfigs;
 using OpenQA.Selenium.Support.Events;
 using System.Threading;
+using WebDriverManager;
+using WebDriverManager.DriverConfigs;
+using WebDriverManager.DriverConfigs.Impl;
+using System.IO;
 
 namespace CodingBrowser
 {
@@ -25,22 +24,16 @@ namespace CodingBrowser
 
         private Browser(string url)
         {
-            // Download/Update Driver
-            //  var c = new FirefoxConfig();
+            var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
-            // var dm  = new DriverManager();
+            var dm  = new DriverManager(appDataPath + @"\CodinGameExtension");
 
-            //   var driverUrl = UrlHelper.BuildUrl(c.GetUrl64(), c.GetLatestVersion());
+            var binary = dm.SetUpDriver(new FirefoxConfig());
 
-            // dm.SetUpDriver(driverUrl, @"C:\temp");
+            var binaryFI = new FileInfo(binary);
 
-            // SetUpDriver(new FirefoxConfig());
-
-            // Start Session
-            var options = new FirefoxOptions();
-                options.PageLoadStrategy = PageLoadStrategy.Eager; //DOM access is ready, but other resources like images may still be loading
-
-            driver = new FirefoxDriver(@"c:\temp\firefox", options) ;
+            //option Eager => DOM access is ready, but other resources like images may still be loading
+            driver = new FirefoxDriver(binaryFI.DirectoryName, new FirefoxOptions() { PageLoadStrategy = PageLoadStrategy.Eager }) ;
 
             driver.Navigate().GoToUrl(url);
 
@@ -121,20 +114,6 @@ namespace CodingBrowser
         }
 
         private static Browser instance;
-
-
-        public string SetUpDriver(IDriverConfig config)
-        {
-
-            var architecture = ArchitectureHelper.GetArchitecture();
-
-            string version = config.GetLatestVersion();
-            var url = architecture.Equals(Architecture.X32) ? config.GetUrl32() : config.GetUrl64();
-            url = UrlHelper.BuildUrl(url, version);
-            var binaryPath = @"c:\temp\Firefox\";  
-            return new DriverManager().SetUpDriver(url, binaryPath);
-
-        }
 
         public static Browser Start()
         {
