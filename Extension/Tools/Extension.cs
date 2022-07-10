@@ -10,7 +10,20 @@ namespace CodinGameExtension.Tools
 {
     internal static class Extension
     {
+        public static bool PropertyExist(this Properties properties, String name)
+        {
 
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            foreach (Property p in properties)
+            {
+                if (p.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase))
+                    return true;
+
+            }
+            return false;
+
+        }
 
         public static string getProperty(this Properties properties, String name)
         {
@@ -18,7 +31,7 @@ namespace CodinGameExtension.Tools
 
             foreach (Property p in properties)
             {
-                if (p.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase)) 
+                if (p.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase))
                     return p.Value.ToString();
 
             }

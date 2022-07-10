@@ -5,15 +5,9 @@ using System.Text;
 
 namespace CodinGameExtension.Tools
 {
-    public class CSharpProject
+    public class CSharpCodeGenerator:CodeGeneratorBase, ICodeGenerator
     {
-        private List<FileInfo> files = new List<FileInfo>();
-
-        public CSharpProject()
-        {
-
-
-        }
+      
 
         public String GetCode()
         {
@@ -77,15 +71,7 @@ namespace CodinGameExtension.Tools
             return sb.ToString();
         }
 
-        public void AddFile(FileInfo fileInfo)
-        {
-            files.Add(fileInfo);
-        }
 
-        public void AddFiles(IEnumerable<FileInfo> fileInfos)
-        {
-            files.AddRange(fileInfos);
-        }
     }
 
     internal class Line

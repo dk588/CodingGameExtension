@@ -76,14 +76,14 @@ namespace CodinGameExtension.Command
 
             vs.SaveAllDocument();
 
-            var cSharpProject = new CSharpProject();
+           var generator = vs.GetCodeGenerator();
 
-            cSharpProject.AddFiles(vs.getProjetFiles().Select(f => new FileInfo(f)));
+            generator.AddFiles(vs.ProjectFiles.Select(f => new FileInfo(f)));
 
             var b = Browser.Start();
 
             if (b.CanSendCode())
-                b.SendCode(cSharpProject.GetCode());
+                b.SendCode(generator.GetCode());
             else
                 MessageBox.Show("Can't find element to send code");
         }

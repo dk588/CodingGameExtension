@@ -46,4 +46,10 @@
     <ProjectReference Include="..\Extension\CodinGameExtension.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="TestFiles\PythonTestFile.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

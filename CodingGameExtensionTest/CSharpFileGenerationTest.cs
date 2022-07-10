@@ -12,7 +12,7 @@ namespace CodingGameExtensionTest
         [Fact]
         public void Header()
         {
-            var cSharpProject = new CSharpProject();
+            var cSharpProject = new CSharpCodeGenerator();
 
            Assert.Equal(HEADER , cSharpProject.GetCode());
 
@@ -21,7 +21,7 @@ namespace CodingGameExtensionTest
         [Fact]
         public void SimpleFile()
         {
-            var cSharpProject = new CSharpProject();
+            var cSharpProject = new CSharpCodeGenerator();
             cSharpProject.AddFile(new FileInfo(@"TestFiles\SimpleTestFile.cs"));
 
             string Content = "Content\r\n";
@@ -32,7 +32,7 @@ namespace CodingGameExtensionTest
        [Fact]
         public void SimpleFileWithSpace()
         {
-            var cSharpProject = new CSharpProject();
+            var cSharpProject = new CSharpCodeGenerator();
             cSharpProject.AddFile(new FileInfo(@"TestFiles\SimpleTestFileWithSpace.cs"));
 
             string Content = "Content\r\n";
@@ -43,7 +43,7 @@ namespace CodingGameExtensionTest
         [Fact]
         public void SimpleFileWithDifferentUsing()
         {
-            var cSharpProject = new CSharpProject();
+            var cSharpProject = new CSharpCodeGenerator();
             cSharpProject.AddFile(new FileInfo(@"TestFiles\SimpleTestFile2.cs"));
 
             string Content = "Content\r\n";
@@ -54,12 +54,15 @@ namespace CodingGameExtensionTest
         [Fact]
         public void WithBraketTestFile()
         {
-            var cSharpProject = new CSharpProject();
+            var cSharpProject = new CSharpCodeGenerator();
             cSharpProject.AddFile(new FileInfo(@"TestFiles\WithBraketTestFile.cs"));
 
             string Content = "    {\r\n\r\n        Content\r\n    }\r\n\r\n    }\r\n\r\n";
 
             Assert.Equal(HEADER + Content, cSharpProject.GetCode());
         }
+
+
+
     }
 }

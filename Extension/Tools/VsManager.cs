@@ -13,25 +13,40 @@ namespace CodinGameExtension.Tools
     {
         EnvDTE80.DTE2 dte;
 
-        public  VsManager()
+   public  VsManager()
         {
             dte = Package.GetGlobalService(typeof(DTE)) as DTE2;
         }
 
-        public List<String> getProjetFiles()
+
+        private List<String> projectFiles;
+        public List<String> ProjectFiles { get { 
+                if (projectFiles is null)
+                {
+                    ThreadHelper.ThrowIfNotOnUIThread();
+
+                    projectFiles = new List<String>();
+
+                    Project prj = ((object[])dte.ActiveSolutionProjects)[0] as Project;
+
+                    ExtractFiles(projectFiles, prj.ProjectItems);
+
+                }
+                return projectFiles; } }
+
+     
+    
+        public ICodeGenerator GetCodeGenerator()
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
-            var result = new List<String>();
-
-            Project prj = ((object[])dte.ActiveSolutionProjects)[0] as Project;
-
-            ExtractFiles(result, prj.ProjectItems);
-
-            return result;
-
-        
+            foreach (var file in ProjectFiles) {
+                if (file.EndsWith(".cs"))
+                    return new CSharpCodeGenerator();
+                if (file.EndsWith(".py"))
+                    return new PythonCodeGenerator();
+            }
+             throw new Exception("cs or pi files not found in project");
         }
+
         /// <summary>
         /// Recursive !
         /// </summary>
@@ -44,6 +59,9 @@ namespace CodinGameExtension.Tools
             foreach (var item in items)
             {
                 var projectItem = item as ProjectItem;
+
+                if (!projectItem.Properties.PropertyExist("FullPath"))
+                    continue; 
 
                 var fullpath = projectItem.Properties.getProperty("FullPath");
 
