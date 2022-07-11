@@ -20,4 +20,4 @@ It's not a Visual Studio Code extension.
 Session cookies management is hazardous
 
 ----------
-Please report bug or improvment request in [Github Issues](https://github.com/dk588/CodingGameExtension/issues)
+Please report bug or improvement request in [Github Issues](https://github.com/dk588/CodingGameExtension/issues)
