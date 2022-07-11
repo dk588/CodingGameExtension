@@ -16,7 +16,8 @@ After the extension is installed, you need to add the Coding Extension Toolbar t
 ## Limitations
 It only works for C# and Python project but can easily be improved for others languages.  
 In case you close the firefox window, you need to restart Visual Studio.  
-It's not a Visual Studio Code extension.  
+It's not a Visual Studio Code extension.
+Session cookies management is hazardous
 
 ----------
 Please report bug or improvment request in [Github Issues](https://github.com/dk588/CodingGameExtension/issues)
