@@ -44,7 +44,7 @@ namespace CodinGameExtension.Tools
                 if (file.EndsWith(".py"))
                     return new PythonCodeGenerator();
             }
-             throw new Exception("cs or pi files not found in project");
+             throw new Exception("cs or py files not found in project");
         }
 
         /// <summary>
