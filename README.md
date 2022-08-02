@@ -7,8 +7,9 @@ You can use multiple files/class in your project.
 Get the extension on the MarketStore : [CodinGameExtension](https://marketplace.visualstudio.com/items?itemName=RenaudR.CodinGameExtension) or in VS go to Extensions > Manage Extensions > CodinGameExtension
 
 
-After the extension is installed, you need to add the Coding Extension Toolbar to your main Toolbar:
-![Toolbar](Doc/Screenshot/Toolbar.png)
+After the extension is installed, you need to add the Coding Extension Toolbar to your main Toolbar: 
+
+![Toolbar](Doc/Screenshot/Toolbar.jpg)
 * First icon allow to launch the browser with CodinGame. The first time, you need to login then you can navigate to the exercice you want.
 * The second button push the current project into your exercice.
 * The third button do the same thing and launch the test.
