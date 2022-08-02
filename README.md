@@ -8,6 +8,7 @@ Get the extension on the MarketStore : [CodinGameExtension](https://marketplace.
 
 
 After the extension is installed, you need to add the Coding Extension Toolbar to your main Toolbar:
+![Toolbar](Doc/Screenshot/Toolbar.png)
 * First icon allow to launch the browser with CodinGame. The first time, you need to login then you can navigate to the exercice you want.
 * The second button push the current project into your exercice.
 * The third button do the same thing and launch the test.
