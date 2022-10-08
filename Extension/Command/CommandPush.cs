@@ -17,60 +17,16 @@ using CodinGameExtension.Tools;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using Community.VisualStudio.Toolkit;
+using CodingGameExtension;
 
 namespace CodinGameExtension.Command
 {
-    /// <summary>
-    /// Command handler
-    /// 
-    /// https://docs.microsoft.com/en-us/visualstudio/extensibility/saving-data-in-project-files?view=vs-2022
-    /// 
-    /// </summary>
-    internal sealed class CommandPush
+    [Command(PackageIds.CommandPush)]
+    internal sealed class CommandPush : BaseCommand<CommandPush>
     {
 
-        public const int CommandId = 0x0101;
-
-        public static readonly Guid CommandSet = new Guid("24fae27f-5144-4741-b6fb-f2f8821376e1");
-
-        private readonly AsyncPackage package;
-
-
-        private CommandPush(AsyncPackage package, OleMenuCommandService commandService)
-        {
-            this.package = package ?? throw new ArgumentNullException(nameof(package));
-            commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
-
-            var menuCommandID = new CommandID(CommandSet, CommandId);
-            var menuItem = new MenuCommand(this.Execute, menuCommandID);
-            commandService.AddCommand(menuItem);
-        }
-
-        public static CommandPush Instance
-        {
-            get;
-            private set;
-        }
-
-        private IAsyncServiceProvider ServiceProvider
-        {
-            get
-            {
-                return this.package;
-            }
-        }
-
-        public static async Task InitializeAsync(AsyncPackage package)
-        {
-            // Switch to the main thread - the call to AddCommand in Command1's constructor requires
-            // the UI thread.
-            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
-
-            OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
-            Instance = new CommandPush(package, commandService);
-        }
-
-        private void Execute(object sender, EventArgs e)
+        protected override async Task ExecuteAsync(OleMenuCmdEventArgs e)
         {
             var vs = new VsManager();
 
@@ -85,7 +41,10 @@ namespace CodinGameExtension.Command
             if (b.CanSendCode())
                 b.SendCode(generator.GetCode());
             else
-                MessageBox.Show("Can't find element to send code");
+            {
+                var m = new Community.VisualStudio.Toolkit.MessageBox();
+                await m.ShowAsync("Can't find element to send code");
+            }
         }
     }
 

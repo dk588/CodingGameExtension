@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<Extern href="stdidcmd.h"/>
+	<Extern href="vsshlids.h"/>
+	<Include href="KnownImageIds.vsct"/>
+	<Include href="VSGlobals.vsct"/>
+
+	<Commands package="CCPackageGuid">
+		<Groups>
+
+
+			<Group guid="CCPackageGuid" id="ToolbarCGGroup" priority="0x0500">
+				<Parent guid="CCPackageGuid" id="ToolbarCG"/>
+			</Group>
+		</Groups>
+		<Menus>
+			<Menu guid="CCPackageGuid" id="ToolbarCG"
+				type="Toolbar" >
+				<CommandFlag>DefaultDocked</CommandFlag>
+				<Strings>
+					<ButtonText>CodinGame Extension</ButtonText>
+					<CommandName>CodinGame Extension</CommandName>
+				</Strings>
+			</Menu>
+		</Menus>
+
+		<!--This section defines the elements the user can interact with, like a menu command or a button
+        or combo box in a toolbar. -->
+		<Buttons>
+
+			<Button guid="CCPackageGuid" id="CommandLoad" priority="0x0110" type="Button">
+				<Parent guid="CCPackageGuid" id="ToolbarCGGroup" />
+				<Icon  guid="guidImages" id="IcoLoad"   />
+				<Strings>
+					<ButtonText>Load CodingGame Browser</ButtonText>
+					<ToolTipText>Load CodingGame Browser</ToolTipText>
+				</Strings>
+			</Button>
+			<Button guid="CCPackageGuid" id="CommandPush" priority="0x0110" type="Button" >
+				<Parent guid="CCPackageGuid" id="ToolbarCGGroup" />
+				<Icon  guid="guidImages" id="IcoPush"  />
+				<Strings>
+					<ButtonText>Push Code</ButtonText>
+					<ToolTipText>Push Code</ToolTipText>
+				</Strings>
+			</Button>
+
+			<Button guid="CCPackageGuid" id="CommandPushNPlay" priority="0x0110" type="Button">
+				<Parent guid="CCPackageGuid" id="ToolbarCGGroup" />
+				<Icon  guid="guidImages" id="IcoPushNPlay"  />
+				<Strings>
+					<ButtonText>Push and play</ButtonText>
+					<ToolTipText>Push and play</ToolTipText>
+				</Strings>
+			</Button>
+		</Buttons>
+		<Bitmaps>
+			<Bitmap guid="guidImages" href="Resources\IconeCodinGame.png" usedList="IcoLoad,IcoPush,IcoPushNPlay"/>
+		</Bitmaps>
+	</Commands>
+
+	<Symbols>
+		<GuidSymbol name="CCPackageGuid" value="{88419a58-a1cb-4cca-ba77-96c68372bc3e}">
+			<IDSymbol name="MyMenuGroup" value="0x0010" />
+			<IDSymbol name="MyCommand" value="0x0100" />
+			<IDSymbol name="ToolbarCG" value="0x1005" />
+			<IDSymbol name="ToolbarCGGroup" value="0x1080" />
+
+			<IDSymbol name="CommandLoad" value="0x0300" />
+			<IDSymbol name="CommandPush" value="0x0301" />
+			<IDSymbol name="CommandPushNPlay" value="0x0302" />
+		</GuidSymbol>
+
+
+		<GuidSymbol name="guidImages" value="{488dd8a2-349c-433f-b061-4298d54a94de}" >
+			<IDSymbol name="IcoLoad" value="1" />
+			<IDSymbol name="IcoPush" value="2" />
+			<IDSymbol name="IcoPushNPlay" value="3" />
+		</GuidSymbol>
+		
+	</Symbols>
+</CommandTable>
