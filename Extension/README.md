@@ -1,5 +1,8 @@
 ﻿
-To improve this extension, you need to install the Mad Kristensen extension: https://marketplace.visualstudio.com/items?itemName=MadsKristensen.ExtensibilityItemTemplates2022
+To improve this extension, you need to install the Mad Kristensen extension:
+https://marketplace.visualstudio.com/items?itemName=MadsKristensen.ExtensibilityTools
+https://marketplace.visualstudio.com/items?itemName=MadsKristensen.ExtensibilityItemTemplates2022
+
 
 
 icon thanks to https://feathericons.com/ color: #FFD200 size: 16
