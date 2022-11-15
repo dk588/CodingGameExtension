@@ -1,7 +1,6 @@
 ﻿
 To improve this extension, you need to install the Mad Kristensen extension:
 https://marketplace.visualstudio.com/items?itemName=MadsKristensen.ExtensibilityTools
-https://marketplace.visualstudio.com/items?itemName=MadsKristensen.ExtensibilityItemTemplates2022
 
 
 
