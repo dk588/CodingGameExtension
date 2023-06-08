@@ -9,7 +9,6 @@ using Task = System.Threading.Tasks.Task;
 
 namespace CodinGameExtension
 {
-
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [InstalledProductRegistration(Vsix.Name, Vsix.Description, Vsix.Version)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
