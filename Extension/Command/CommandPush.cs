@@ -22,14 +22,13 @@ namespace CodinGameExtension.Command
 
             generator.AddFiles(vs.ProjectFiles.Select(f => new FileInfo(f)));
 
-            var b = Browser.Start();
+            var b = Browser.Start(vs.GetStartupUrl());
 
             if (b.CanSendCode())
                 b.SendCode(generator.GetCode());
             else
             {
-                var m = new MessageBox();
-                await m.ShowAsync("Can't find element to send code");
+                await new MessageBox().ShowErrorAsync("Can't find element to send code");
             }
         }
     }
