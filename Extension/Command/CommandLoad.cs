@@ -1,13 +1,11 @@
-﻿
-using CodingBrowser;
+﻿using CodingBrowser;
+using CodingGameExtension;
+using Community.VisualStudio.Toolkit;
 using Microsoft.VisualStudio.Shell;
 using Task = System.Threading.Tasks.Task;
-using Community.VisualStudio.Toolkit;
-using CodingGameExtension;
 
 namespace CodinGameExtension.Command
 {
-
     [Command(PackageIds.CommandLoad)]
     internal sealed class CommandLoad : BaseCommand<CommandLoad>
     {

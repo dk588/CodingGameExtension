@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 
 namespace CodinGameExtension.Tools
 {
     public interface ICodeGenerator
     {
-
-        String GetCode();
+        string GetCode();
 
         void AddFile(FileInfo fileInfo);
 
-         void AddFiles(IEnumerable<FileInfo> fileInfos);
-
-
+        void AddFiles(IEnumerable<FileInfo> fileInfos);
     }
 }

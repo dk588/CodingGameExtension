@@ -8,23 +8,87 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="TestFiles\SimpleTestFile.cs" />
-    <Compile Remove="TestFiles\SimpleTestFile2.cs" />
-    <Compile Remove="TestFiles\SimpleTestFileWithSpace.cs" />
-    <Compile Remove="TestFiles\WithBraketTestFile.cs" />
+    <Compile Remove="CSharp\BlockScopedWithUsings\input.cs" />
+    <Compile Remove="CSharp\BlockScopedWithUsings\output.cs" />
+    <Compile Remove="CSharp\FileScopedNamespace\input.cs" />
+    <Compile Remove="CSharp\FileScopedNamespace\output.cs" />
+    <Compile Remove="CSharp\FileScopedUsings\input.cs" />
+    <Compile Remove="CSharp\FileScopedUsings\output.cs" />
+    <Compile Remove="CSharp\MixedNamespaces\input1.cs" />
+    <Compile Remove="CSharp\MixedNamespaces\input2.cs" />
+    <Compile Remove="CSharp\MixedNamespaces\input3.cs" />
+    <Compile Remove="CSharp\MixedNamespaces\output.cs" />
+    <Compile Remove="CSharp\NoNamespace\input.cs" />
+    <Compile Remove="CSharp\NoNamespace\output.cs" />
+    <Compile Remove="CSharp\SimpleTestFile2\input.cs" />
+    <Compile Remove="CSharp\SimpleTestFile2\output.cs" />
+    <Compile Remove="CSharp\SimpleTestFileWithSpace\input.cs" />
+    <Compile Remove="CSharp\SimpleTestFileWithSpace\output.cs" />
+    <Compile Remove="CSharp\SimpleTestFile\input.cs" />
+    <Compile Remove="CSharp\SimpleTestFile\output.cs" />
+    <Compile Remove="CSharp\WithBracketTestFile\input.cs" />
+    <Compile Remove="CSharp\WithBracketTestFile\output.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="TestFiles\WithBraketTestFile.cs">
+    <Content Include="CSharp\BlockScopedWithUsings\input.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestFiles\SimpleTestFileWithSpace.cs">
+    <Content Include="CSharp\BlockScopedWithUsings\output.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestFiles\SimpleTestFile2.cs">
+    <Content Include="CSharp\FileScopedNamespace\input.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestFiles\SimpleTestFile.cs">
+    <Content Include="CSharp\FileScopedNamespace\output.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CSharp\FileScopedUsings\input.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CSharp\FileScopedUsings\output.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CSharp\MixedNamespaces\input2.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CSharp\MixedNamespaces\input3.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CSharp\MixedNamespaces\input1.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CSharp\MixedNamespaces\output.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CSharp\NoNamespace\input.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CSharp\NoNamespace\output.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CSharp\SimpleTestFile2\input.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CSharp\SimpleTestFile2\output.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CSharp\SimpleTestFileWithSpace\input.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CSharp\SimpleTestFileWithSpace\output.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CSharp\SimpleTestFile\input.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CSharp\SimpleTestFile\output.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CSharp\WithBracketTestFile\input.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CSharp\WithBracketTestFile\output.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -47,7 +111,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="TestFiles\PythonTestFile.py">
+    <None Update="Python\PythonTestFile\input.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Python\PythonTestFile\output.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

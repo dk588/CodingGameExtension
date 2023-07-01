@@ -5,9 +5,7 @@ namespace CodinGameExtension.Tools
 {
     public abstract class CodeGeneratorBase
     {
-
         internal List<FileInfo> files = new List<FileInfo>();
-
 
         public void AddFile(FileInfo fileInfo)
         {
@@ -18,6 +16,5 @@ namespace CodinGameExtension.Tools
         {
             files.AddRange(fileInfos);
         }
-
     }
 }

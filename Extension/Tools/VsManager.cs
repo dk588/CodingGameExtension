@@ -3,48 +3,50 @@ using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CodinGameExtension.Tools
 {
     internal class VsManager
     {
-        EnvDTE80.DTE2 dte;
+        private readonly DTE2 dte;
 
-   public  VsManager()
+        public VsManager()
         {
             dte = Package.GetGlobalService(typeof(DTE)) as DTE2;
         }
 
+        private List<string> projectFiles;
 
-        private List<String> projectFiles;
-        public List<String> ProjectFiles { get { 
+        [SuppressMessage("Usage", "VSTHRD108:Assert thread affinity unconditionally", Justification = "Lazy initialisation of the property")]
+        public List<string> ProjectFiles
+        {
+            get
+            {
                 if (projectFiles is null)
                 {
                     ThreadHelper.ThrowIfNotOnUIThread();
 
-                    projectFiles = new List<String>();
+                    projectFiles = new List<string>();
 
                     Project prj = ((object[])dte.ActiveSolutionProjects)[0] as Project;
-
+                    
                     ExtractFiles(projectFiles, prj.ProjectItems);
-
                 }
-                return projectFiles; } }
+                return projectFiles;
+            }
+        }
 
-     
-    
         public ICodeGenerator GetCodeGenerator()
         {
-            foreach (var file in ProjectFiles) {
+            foreach (var file in ProjectFiles)
+            {
                 if (file.EndsWith(".cs"))
                     return new CSharpCodeGenerator();
                 if (file.EndsWith(".py"))
                     return new PythonCodeGenerator();
             }
-             throw new Exception("cs or py files not found in project");
+            throw new Exception("cs or py files not found in project");
         }
 
         /// <summary>
@@ -61,7 +63,7 @@ namespace CodinGameExtension.Tools
                 var projectItem = item as ProjectItem;
 
                 if (!projectItem.Properties.PropertyExist("FullPath"))
-                    continue; 
+                    continue;
 
                 var fullpath = projectItem.Properties.getProperty("FullPath");
 
@@ -69,7 +71,6 @@ namespace CodinGameExtension.Tools
                     ExtractFiles(result, projectItem.ProjectItems);
                 else
                     result.Add(fullpath);
-
             }
         }
 
@@ -77,8 +78,6 @@ namespace CodinGameExtension.Tools
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             dte.Documents.SaveAll();
-
         }
-
     }
 }

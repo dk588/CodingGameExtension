@@ -1,23 +1,17 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using F = System.Windows.Forms;
-using OpenQA.Selenium.Support.Events;
 using System.Threading;
 using WebDriverManager;
-using WebDriverManager.DriverConfigs;
 using WebDriverManager.DriverConfigs.Impl;
-using System.IO;
+using F = System.Windows.Forms;
 
 namespace CodingBrowser
 {
     public class Browser
     {
-
         public WebDriver driver;
 
         Thread InstanceCaller;
@@ -26,17 +20,16 @@ namespace CodingBrowser
         {
             var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
-            var dm  = new DriverManager(appDataPath + @"\CodinGameExtension");
+            var dm = new DriverManager(appDataPath + @"\CodinGameExtension");
 
             var binary = dm.SetUpDriver(new FirefoxConfig());
 
             var binaryFI = new FileInfo(binary);
 
             //option Eager => DOM access is ready, but other resources like images may still be loading
-            driver = new FirefoxDriver(binaryFI.DirectoryName, new FirefoxOptions() { PageLoadStrategy = PageLoadStrategy.Eager }) ;
+            driver = new FirefoxDriver(binaryFI.DirectoryName, new FirefoxOptions() { PageLoadStrategy = PageLoadStrategy.Eager });
 
             driver.Navigate().GoToUrl(url);
-
 
             if (CookieManager.CookieFileExist())
             {
@@ -44,7 +37,7 @@ namespace CodingBrowser
                 driver.Navigate().Refresh();
             }
 
-             InstanceCaller = new Thread(new ThreadStart(CookieChecker));
+            InstanceCaller = new Thread(new ThreadStart(CookieChecker));
             InstanceCaller.Start();
         }
 
@@ -66,7 +59,9 @@ namespace CodingBrowser
                         }
                     }
                 }
-                catch (Exception ex) { }
+                catch 
+                {
+                }
                 Thread.Sleep(1000);
             }
         }
@@ -78,7 +73,8 @@ namespace CodingBrowser
         /// </summary>
         public void CheckCookie()
         {
-            if (IsCodingGameOpen()) {
+            if (IsCodingGameOpen())
+            {
                 if (ClassExist(Element.BUTTON_LOGIN))
                 {
                     if (CookieManager.CookieFileExist())
@@ -86,7 +82,7 @@ namespace CodingBrowser
                 }
                 else
                 {
-                    if(!CookieManager.CookieFileExist())
+                    if (!CookieManager.CookieFileExist())
                         CookieManager.SaveToFile(driver.Manage().Cookies);
                 }
             }
@@ -98,9 +94,10 @@ namespace CodingBrowser
             {
                 return driver.Url.IndexOf("codingame.com", StringComparison.OrdinalIgnoreCase) > 0;
             }
-            catch(WebDriverException)
-            { return false; }
-
+            catch (WebDriverException)
+            {
+                return false;
+            }
         }
 
 
@@ -117,9 +114,7 @@ namespace CodingBrowser
 
         public static Browser Start()
         {
-
             return Start("https://www.codingame.com/");
-
         }
 
         public static Browser Start(string url)
@@ -127,8 +122,8 @@ namespace CodingBrowser
             if (instance == null)
             {
                 instance = new Browser(url);
-            }            
-                return instance;
+            }
+            return instance;
         }
 
         public static void Refresh()
@@ -145,16 +140,13 @@ namespace CodingBrowser
             {
                 instance.InstanceCaller.Abort();
                 instance.driver.Quit();
-       
-
             }
         }
 
-        public void SendCode(string code) {
-
+        public void SendCode(string code)
+        {
             if (CanSendCode())
             {
-
                 var el = driver.FindElement(By.ClassName(Element.ZONE_CODE));
                 if (el != null)
                 {
@@ -177,7 +169,7 @@ namespace CodingBrowser
 
         public bool CanLaunchTest()
         {
-            return IsEnabledButton(Element.BUTTON_PLAY);        
+            return IsEnabledButton(Element.BUTTON_PLAY);
         }
 
         public bool IsEnabledButton(string b)
@@ -197,8 +189,7 @@ namespace CodingBrowser
             {
                 PushButton(Element.BUTTON_REPLAY);
             }
-            else
-            if (IsEnabledButton(Element.BUTTON_PLAY))
+            else if (IsEnabledButton(Element.BUTTON_PLAY))
             {
                 PushButton(Element.BUTTON_PLAY);
             }
@@ -214,9 +205,7 @@ namespace CodingBrowser
             }
         }
 
-
         public void Submitcode() { throw new NotImplementedException(); }
-
 
         /// <summary>
         /// Not used
@@ -239,7 +228,6 @@ namespace CodingBrowser
                 return result;
             }
             return "";
-         
         }
     }
 }
