@@ -1,9 +1,12 @@
-﻿using EnvDTE;
+﻿using CodingBrowser;
+using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using MessageBox = Community.VisualStudio.Toolkit.MessageBox;
 
 namespace CodinGameExtension.Tools
 {
@@ -30,7 +33,6 @@ namespace CodinGameExtension.Tools
                     projectFiles = new List<string>();
 
                     Project prj = ((object[])dte.ActiveSolutionProjects)[0] as Project;
-                    
                     ExtractFiles(projectFiles, prj.ProjectItems);
                 }
                 return projectFiles;
@@ -47,6 +49,41 @@ namespace CodinGameExtension.Tools
                     return new PythonCodeGenerator();
             }
             throw new Exception("cs or py files not found in project");
+        }
+
+        public string GetStartupUrl()
+        {
+            const string CONFIGURATION_KEY = "CodingameExtension.StartupUrl";
+            ThreadHelper.ThrowIfNotOnUIThread();
+            var startupProjects = dte.Solution.SolutionBuild.StartupProjects;
+            if (startupProjects is IEnumerable e)
+            {
+                foreach (object obj in e)
+                {
+                    if (obj is string str)
+                    {
+                        foreach (Project prj in dte.Solution.Projects)
+                        {
+                            if (prj.UniqueName == str)
+                            {
+                                if (prj.Globals.VariableExists[CONFIGURATION_KEY])
+                                {
+                                    return prj.Globals[CONFIGURATION_KEY]?.ToString();
+                                }
+                                else
+                                {
+                                    prj.Globals[CONFIGURATION_KEY] = Browser.DefaultStartupUrl;
+                                    prj.Globals.VariablePersists[CONFIGURATION_KEY] = true;
+                                    prj.Save();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            new MessageBox().Show("No startup url found, starting on home page");
+            return Browser.DefaultStartupUrl;
         }
 
         /// <summary>

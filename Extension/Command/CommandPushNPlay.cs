@@ -22,7 +22,7 @@ namespace CodinGameExtension.Command
 
             generator.AddFiles(vs.ProjectFiles.Select(f => new FileInfo(f)));
 
-            var b = Browser.Start();
+            var b = Browser.Start(vs.GetStartupUrl());
 
             if (b.CanSendCode())
             {
@@ -31,14 +31,12 @@ namespace CodinGameExtension.Command
                     b.LaunchTest();
                 else
                 {
-                    var m = new MessageBox();
-                    await m.ShowAsync("Can't find element to launch test");
+                    await new MessageBox().ShowErrorAsync("Can't find element to launch test");
                 }
             }
             else
             {
-                var m = new MessageBox();
-                await m.ShowAsync("Can't find element to send code");
+                await new MessageBox().ShowAsync("Can't find element to send code");
             }
         }
     }

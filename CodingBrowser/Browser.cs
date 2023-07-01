@@ -16,6 +16,8 @@ namespace CodingBrowser
 
         Thread InstanceCaller;
 
+        public static string DefaultStartupUrl => "https://www.codingame.com/";
+
         private Browser(string url)
         {
             var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -114,7 +116,7 @@ namespace CodingBrowser
 
         public static Browser Start()
         {
-            return Start("https://www.codingame.com/");
+            return Start(DefaultStartupUrl);
         }
 
         public static Browser Start(string url)
