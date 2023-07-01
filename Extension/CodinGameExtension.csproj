@@ -61,7 +61,7 @@
     <Compile Include="Tools\CSharpCodeGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CodingGameExtensionPackage.cs" />
-    <Compile Include="Tools\Extension.cs" />
+    <Compile Include="Tools\PropertiesExtensions.cs" />
     <Compile Include="Tools\ICodeGenerator.cs" />
     <Compile Include="Tools\PythonCodeGenerator.cs" />
     <Compile Include="Tools\VsManager.cs" />

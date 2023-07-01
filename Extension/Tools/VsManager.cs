@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.Shell;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace CodinGameExtension.Tools
 {
@@ -29,10 +30,13 @@ namespace CodinGameExtension.Tools
 
                     projectFiles = new List<string>();
 
-                    Project prj = ((object[])dte.ActiveSolutionProjects)[0] as Project;
-                    
-                    ExtractFiles(projectFiles, prj.ProjectItems);
+                    // Unloaded projects will just have null ProjectItems
+                    foreach (Project prj in dte.Solution.Projects.OfType<Project>())
+                    {
+                        ExtractFiles(projectFiles, prj.ProjectItems);
+                    }
                 }
+
                 return projectFiles;
             }
         }
@@ -57,20 +61,19 @@ namespace CodinGameExtension.Tools
         private static void ExtractFiles(List<string> result, ProjectItems items)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-
-            foreach (var item in items)
+            if (items != null)
             {
-                var projectItem = item as ProjectItem;
-
-                if (!projectItem.Properties.PropertyExist("FullPath"))
-                    continue;
-
-                var fullpath = projectItem.Properties.getProperty("FullPath");
-
-                if (fullpath.EndsWith("\\")) //Folder
-                    ExtractFiles(result, projectItem.ProjectItems);
-                else
-                    result.Add(fullpath);
+                foreach (var projectItem in items.OfType<ProjectItem>())
+                {
+                    if (projectItem.Properties.PropertyExist("FullPath"))
+                    {
+                        string fullpath = projectItem.Properties.GetProperty("FullPath");
+                        if (fullpath.EndsWith("\\")) //Folder
+                            ExtractFiles(result, projectItem.ProjectItems);
+                        else
+                            result.Add(fullpath);
+                    }
+                }
             }
         }
 
