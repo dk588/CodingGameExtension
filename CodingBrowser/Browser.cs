@@ -12,23 +12,24 @@ namespace CodingBrowser
 {
     public class Browser
     {
-        public WebDriver driver;
+        private WebDriver driver;
 
-        Thread InstanceCaller;
+        private Thread InstanceCaller;
 
         private Browser(string url)
         {
-            var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-
-            var dm = new DriverManager(appDataPath + @"\CodinGameExtension");
-
-            var binary = dm.SetUpDriver(new FirefoxConfig());
-
-            var binaryFI = new FileInfo(binary);
-
-            //option Eager => DOM access is ready, but other resources like images may still be loading
-            driver = new FirefoxDriver(binaryFI.DirectoryName, new FirefoxOptions() { PageLoadStrategy = PageLoadStrategy.Eager });
-
+            string appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CodinGameExtension");
+            DriverManager dm = new DriverManager(appDataPath);
+            string binary = dm.SetUpDriver(new FirefoxConfig());
+            FirefoxDriverService service = FirefoxDriverService.CreateDefaultService(Path.GetDirectoryName(binary));
+#if !DEBUG
+            service.HideCommandPromptWindow = true;
+#endif
+            driver = new FirefoxDriver(service, new FirefoxOptions
+            {
+                //option Eager => DOM access is ready, but other resources like images may still be loading
+                PageLoadStrategy = PageLoadStrategy.Eager,
+            });
             driver.Navigate().GoToUrl(url);
 
             if (CookieManager.CookieFileExist())
@@ -40,7 +41,6 @@ namespace CodingBrowser
             InstanceCaller = new Thread(new ThreadStart(CookieChecker));
             InstanceCaller.Start();
         }
-
 
         private void CookieChecker()
         {
@@ -55,7 +55,6 @@ namespace CodingBrowser
                         {
                             url = driver.Url;
                             CheckCookie();
-
                         }
                     }
                 }
